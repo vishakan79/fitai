@@ -1,11 +1,11 @@
 import {
+  BarChart3,
   Camera,
-  ClipboardList,
+  Crown,
   Dumbbell,
   Flame,
   HeartPulse,
   LineChart,
-  MessageSquareText,
   Trophy,
   Zap,
   type LucideIcon,
@@ -13,6 +13,8 @@ import {
 
 export interface Feature {
   icon: LucideIcon
+  /** Tailwind classes for the icon tile (background + colour). */
+  tone: string
   title: string
   short: string
   long: string
@@ -21,30 +23,35 @@ export interface Feature {
 export const features: Feature[] = [
   {
     icon: Camera,
+    tone: 'bg-sky-500/15 text-sky-400',
     title: 'Real-Time Form Guidance',
     short: 'Get instant feedback on your posture.',
     long: 'Your camera feed is analysed on your device with a pose model. Exercise-specific rules compare joint angles to comfortable ranges and show general guidance, only when the landmarks are reliable enough to trust.',
   },
   {
-    icon: ClipboardList,
+    icon: BarChart3,
+    tone: 'bg-emerald-500/15 text-emerald-400',
     title: 'Personalised Workout Plans',
     short: 'Plans tailored to your goals and level.',
     long: 'Tell us your goal, experience, equipment, schedule and limitations. AI drafts a structured weekly plan, and the server validates every exercise, set and rep range before it is saved.',
   },
   {
-    icon: MessageSquareText,
+    icon: Crown,
+    tone: 'bg-amber-400/15 text-amber-300',
     title: 'AI Fitness Assistant',
     short: 'Ask anything about workouts and recovery.',
     long: 'Chat about technique, beginner routines, modifications and rest days. The assistant only sees your own saved data, and it is not a doctor or a substitute for a qualified professional.',
   },
   {
     icon: Trophy,
+    tone: 'bg-amber-400/15 text-amber-300',
     title: 'Track Your Progress',
     short: 'See improvement with detailed history.',
     long: 'Every saved session feeds a calendar, weekly and monthly summaries, exercise-level history and consistency trends. Numbers come from your real records, nothing is estimated or invented.',
   },
   {
     icon: Zap,
+    tone: 'bg-yellow-400/15 text-yellow-300',
     title: 'Anytime, Anywhere',
     short: 'Train at home, in the gym or on the go.',
     long: 'Works in a modern browser on a phone or laptop. No camera? Use manual mode to log sets and reps yourself.',
@@ -98,9 +105,9 @@ export const steps = [
 ]
 
 export const goals = [
-  { id: 'lose-weight', label: 'Lose Weight', icon: Flame },
-  { id: 'build-strength', label: 'Build Strength', icon: Dumbbell },
-  { id: 'improve-fitness', label: 'Stay Fit', icon: HeartPulse },
+  { id: 'lose-weight', label: 'Lose Weight', icon: Flame, tone: 'text-orange-400' },
+  { id: 'build-strength', label: 'Build Strength', icon: Dumbbell, tone: 'text-violet-400' },
+  { id: 'improve-fitness', label: 'Stay Fit', icon: HeartPulse, tone: 'text-rose-400' },
 ] as const
 
 export type GoalId = (typeof goals)[number]['id']

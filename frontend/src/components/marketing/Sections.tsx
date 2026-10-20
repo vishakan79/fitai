@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Check, ChevronDown } from 'lucide-react'
+import { ArrowRight, Check, ChevronDown, Crown } from 'lucide-react'
 import { Badge, Card, LinkButton } from '@/components/ui'
 import { cn } from '@/lib/cn'
 import { faqs, features, goals, plans, steps, supportedExercises, type GoalId } from '@/lib/content'
@@ -39,7 +39,7 @@ export function FeatureStrip() {
       {features.map((f) => (
         <li key={f.title}>
           <Card interactive className="flex h-full items-start gap-4 p-5">
-            <span className="grid size-12 shrink-0 place-items-center rounded-xl bg-primary/15 text-secondary">
+            <span className={cn('grid size-12 shrink-0 place-items-center rounded-xl', f.tone)}>
               <f.icon className="size-6" aria-hidden="true" />
             </span>
             <div>
@@ -59,7 +59,7 @@ export function FeatureGrid() {
       {features.map((f) => (
         <li key={f.title}>
           <Card interactive className="h-full">
-            <span className="grid size-12 place-items-center rounded-xl bg-primary/15 text-secondary">
+            <span className={cn('grid size-12 place-items-center rounded-xl', f.tone)}>
               <f.icon className="size-6" aria-hidden="true" />
             </span>
             <h3 className="mt-5 text-lg font-semibold">{f.title}</h3>
@@ -133,7 +133,7 @@ export function GoalPicker() {
                   : 'border-line-strong bg-navy-800 text-muted hover:border-secondary/50 hover:text-ink',
               )}
             >
-              <g.icon className={cn('size-5', selected ? 'text-secondary' : 'text-faint')} aria-hidden="true" />
+              <g.icon className={cn('size-5', g.tone)} aria-hidden="true" />
               {g.label}
             </button>
           )
@@ -142,6 +142,20 @@ export function GoalPicker() {
       <LinkButton to={`/register?goal=${goal}`} className="mt-6">
         Start with this goal <ArrowRight className="size-4" aria-hidden="true" />
       </LinkButton>
+    </Card>
+  )
+}
+
+export function FreeForeverCard() {
+  return (
+    <Card className="flex items-center gap-4 p-5">
+      <span className="grid size-14 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary/40 to-secondary/20 text-amber-300">
+        <Crown className="size-7" aria-hidden="true" />
+      </span>
+      <div>
+        <p className="text-lg font-bold text-amber-300">Free to start</p>
+        <p className="text-sm text-muted">Start your fitness journey at no cost.</p>
+      </div>
     </Card>
   )
 }

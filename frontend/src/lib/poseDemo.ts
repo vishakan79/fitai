@@ -88,3 +88,29 @@ export function squatDepth(cycle: number): number {
   const c = ((cycle % 1) + 1) % 1
   return easeInOut(c < 0.5 ? c * 2 : (1 - c) * 2)
 }
+
+const rad = (deg: number) => (deg * Math.PI) / 180
+/** Point at distance `len` from `from`, at `deg` degrees from straight up (positive = leaning forward / +x). */
+function reach(from: Point, len: number, deg: number): Point {
+  return { x: from.x + len * Math.sin(rad(deg)), y: from.y - len * Math.cos(rad(deg)) }
+}
+
+/** Fixed segment lengths (SVG units) so limbs never stretch while animating. */
+export const SEGMENTS = { shin: 94, thigh: 98, torso: 126, neck: 54, upperArm: 63, forearm: 40 } as const
+
+/**
+ * Side-view squat pose at `depth` (0 standing .. 1 bottom), built with forward kinematics from a
+ * planted ankle so segment lengths stay constant: shin and torso lean forward, the thigh swings
+ * back towards horizontal and the clasped hands rise in front of the chest.
+ */
+export function poseAtDepth(depth: number): Pose {
+  const ankle: Point = { x: 220, y: 430 }
+  const knee = reach(ankle, SEGMENTS.shin, lerp(0, 28, depth))
+  const hip = reach(knee, SEGMENTS.thigh, lerp(-4, -75, depth))
+  const shoulder = reach(hip, SEGMENTS.torso, lerp(-1, 38, depth))
+  const head = reach(shoulder, SEGMENTS.neck, lerp(0, 26, depth))
+  // arm angles are measured from straight up; ~180 points down
+  const elbow = reach(shoulder, SEGMENTS.upperArm, lerp(158, 168, depth))
+  const wrist = reach(elbow, SEGMENTS.forearm, lerp(36, 62, depth))
+  return { head, shoulder, elbow, wrist, hip, knee, ankle }
+}
