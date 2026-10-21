@@ -29,6 +29,9 @@ export function getErrorMessage(error: unknown, fallback = 'Something went wrong
     if (err.code === 'ECONNABORTED') return 'The request took too long. Please try again.'
     if (!err.response) return 'Cannot reach the server. Check your connection and try again.'
     if (err.response.status === 429) return 'Too many requests. Please wait a moment and try again.'
+    if (err.response.status >= 500 || err.response.status === 404 || err.response.status === 405) {
+      return err.response.data?.message ?? "The FitAI server isn't available yet, so this action couldn't be completed. Nothing was saved."
+    }
     return err.response.data?.message ?? fallback
   }
   return error instanceof Error && error.message ? error.message : fallback

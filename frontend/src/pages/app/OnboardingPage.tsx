@@ -165,8 +165,8 @@ export function OnboardingPage() {
           </div>
         </div>
         <div className="relative mx-auto hidden w-full max-w-md lg:block">
-          <div className="absolute -inset-6 rounded-full bg-primary/25 blur-3xl" aria-hidden="true" />
-          <img src="/images/athlete-woman.webp" alt="" className="relative w-full rounded-[2rem] border border-line-strong object-cover [mask-image:linear-gradient(to_bottom,black_80%,transparent)]" />
+          <div className="absolute -inset-[8%] bg-[radial-gradient(closest-side,rgb(124_58_237/0.4),transparent)]" aria-hidden="true" />
+          <img src="/images/athlete-woman.webp" alt="" className="relative w-full rounded-[2rem] border border-line-strong object-cover [mask-image:linear-gradient(to_bottom,black_82%,transparent)]" />
           <p className="absolute bottom-8 left-1/2 w-4/5 -translate-x-1/2 rounded-2xl border border-line-strong bg-navy-900/80 px-4 py-3 text-center text-sm font-medium backdrop-blur">
             A healthier, stronger you starts here.
           </p>

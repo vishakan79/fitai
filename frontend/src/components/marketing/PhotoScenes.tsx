@@ -39,14 +39,14 @@ export function HeroPhoto({ className }: { className?: string }) {
   const { reps, target } = useDemoReps({ start: 12 })
   return (
     <div className={cn('relative mx-auto aspect-[4/5] w-full max-w-[34rem]', className)}>
-      <div className="absolute -inset-6 rounded-full bg-primary/30 blur-3xl" aria-hidden="true" />
+      <div className="absolute -inset-[8%] bg-[radial-gradient(closest-side,rgb(124_58_237/0.5),transparent)]" aria-hidden="true" />
       <img
         src="/images/athlete-woman.webp"
         alt="Woman doing a bodyweight squat with a glowing pose-tracking skeleton overlay"
         width={640}
         height={920}
         fetchPriority="high"
-        className="animate-breathe absolute inset-x-[6%] bottom-0 top-[4%] h-[92%] w-[88%] rounded-[2rem] object-cover object-top shadow-[0_30px_80px_-20px_rgb(124_58_237/0.7)] [mask-image:linear-gradient(to_bottom,black_82%,transparent)]"
+        className="animate-breathe absolute inset-x-[6%] bottom-0 top-[4%] h-[92%] w-[88%] rounded-[2rem] object-cover object-top [mask-image:linear-gradient(to_bottom,black_82%,transparent)]"
       />
       <div className="absolute left-0 top-[8%] flex items-center gap-2.5 rounded-full border border-success/70 bg-navy-900/80 px-4 py-2 text-sm font-semibold text-success-glow backdrop-blur">
         <span className="grid size-6 place-items-center rounded-full bg-success text-navy-900">
@@ -88,7 +88,7 @@ export function ActionPhoto({ className }: { className?: string }) {
         width={596}
         height={544}
         loading="lazy"
-        className="absolute inset-0 size-full object-cover object-center"
+        className="absolute inset-0 size-full object-cover object-[50%_22%]"
       />
       <div className="absolute inset-0 bg-gradient-to-r from-card/70 via-transparent to-transparent" />
       <div className="pointer-events-none absolute inset-3 rounded-2xl border border-success/40" />

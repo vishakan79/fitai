@@ -48,11 +48,11 @@ export function AuthShell({
           <div className={cn('relative hidden lg:block', photoSide === 'right' && 'order-2')}>
             <div className="relative z-10 max-w-md">{side}</div>
             <div className="relative mt-6 h-[28rem]">
-              <div className="absolute inset-x-8 bottom-0 top-8 rounded-full bg-primary/25 blur-3xl" aria-hidden="true" />
+              <div className="absolute inset-0 bg-[radial-gradient(closest-side,rgb(124_58_237/0.4),transparent)]" aria-hidden="true" />
               <img
                 src={img.src}
                 alt={img.alt}
-                className="relative mx-auto h-full w-auto max-w-full rounded-[2rem] border border-line-strong object-cover [mask-image:linear-gradient(to_bottom,black_80%,transparent)]"
+                className="relative mx-auto h-full w-auto max-w-full rounded-[2rem] border border-line-strong object-cover [mask-image:linear-gradient(to_bottom,black_82%,transparent)]"
               />
             </div>
           </div>
