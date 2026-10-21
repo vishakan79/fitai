@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Check, ChevronDown, Crown } from 'lucide-react'
 import { Badge, Card, LinkButton } from '@/components/ui'
 import { cn } from '@/lib/cn'
-import { faqs, features, goals, plans, steps, supportedExercises, type GoalId } from '@/lib/content'
+import { exerciseCatalog, faqs, features, goals, plans, steps, type GoalId } from '@/lib/content'
 
 export function Section({
   id,
@@ -73,7 +73,7 @@ export function FeatureGrid() {
 
 export function StepList() {
   return (
-    <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
+    <ol className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {steps.map((s, i) => (
         <li key={s.title}>
           <Card className="h-full">
@@ -94,16 +94,26 @@ export function StepList() {
 
 export function ExerciseCards() {
   return (
-    <ul className="grid gap-6 md:grid-cols-3">
-      {supportedExercises.map((e) => (
-        <li key={e.name}>
-          <Card interactive className="h-full">
-            <Badge tone="success">
-              <Check className="size-3" aria-hidden="true" /> Camera tracked
-            </Badge>
-            <h3 className="mt-4 text-lg font-semibold">{e.name}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-muted">{e.blurb}</p>
-          </Card>
+    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+      {exerciseCatalog.map((e) => (
+        <li key={e.id}>
+          <Link
+            to="/login"
+            className="surface group block h-full overflow-hidden transition hover:-translate-y-0.5 hover:border-secondary/50"
+          >
+            <div className="relative aspect-[16/11] overflow-hidden">
+              <img src={e.image} alt="" loading="lazy" className="size-full object-cover transition duration-300 group-hover:scale-105" />
+              {e.tracked && (
+                <span className="absolute left-2 top-2 inline-flex items-center gap-1 rounded-full bg-navy-900/80 px-2 py-0.5 text-[10px] font-semibold text-success-glow">
+                  <Check className="size-3" aria-hidden="true" /> Camera
+                </span>
+              )}
+            </div>
+            <div className="p-3">
+              <h3 className="text-sm font-semibold">{e.name}</h3>
+              <p className="text-xs text-muted">{e.area}</p>
+            </div>
+          </Link>
         </li>
       ))}
     </ul>
@@ -160,19 +170,19 @@ export function FreeForeverCard() {
   )
 }
 
-export function PricingCards() {
+export function PricingCards({ compact = false }: { compact?: boolean }) {
   return (
-    <ul className="grid items-stretch gap-6 lg:grid-cols-3">
+    <ul className={cn('grid items-stretch gap-6', compact ? 'md:grid-cols-3' : 'lg:grid-cols-3')}>
       {plans.map((p) => (
         <li key={p.id}>
           <Card
             className={cn(
-              'relative flex h-full flex-col p-8',
+              compact ? 'relative flex h-full flex-col p-5' : 'relative flex h-full flex-col p-8',
               p.highlighted && 'border-secondary/60 shadow-glow',
             )}
           >
             {p.highlighted && (
-              <Badge tone="primary" className="absolute -top-3 left-8 bg-navy-900">
+              <Badge tone="primary" className="absolute -top-3 left-5 bg-navy-900">
                 Most popular
               </Badge>
             )}

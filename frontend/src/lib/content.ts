@@ -58,49 +58,26 @@ export const features: Feature[] = [
   },
 ]
 
-export const supportedExercises = [
-  {
-    name: 'Bodyweight Squat',
-    blurb: 'Tracks depth from hip and knee angles and counts a rep on a full down-and-up cycle.',
-    tracked: true,
-  },
-  {
-    name: 'Push-Up',
-    blurb: 'Follows elbow bend and body alignment from a side-on camera view.',
-    tracked: true,
-  },
-  {
-    name: 'Lunge',
-    blurb: 'Counts alternating legs and shows which side you are on.',
-    tracked: true,
-  },
-]
-
 export const steps = [
   {
     icon: Camera,
-    title: 'Allow the camera',
-    body: 'Camera access is requested only when you start a camera workout. Video stays on your device. It is never uploaded or stored.',
+    title: 'Open the app',
+    body: 'Allow camera access when you start a workout and set your goals. Video stays on your device.',
   },
   {
     icon: Dumbbell,
-    title: 'Pick an exercise',
-    body: 'Choose squats, push-ups or lunges, then set your target reps and number of sets.',
+    title: 'Choose a workout',
+    body: 'Pick an exercise or a plan, then set your target reps and sets.',
   },
   {
     icon: HeartPulse,
-    title: 'Get tracked',
-    body: 'Step back until your full body is in frame. A skeleton overlay follows you and counts each valid repetition.',
-  },
-  {
-    icon: Flame,
-    title: 'Follow the feedback',
-    body: 'Short, general hints appear as you move. If tracking is unreliable you will be asked to adjust the camera instead.',
+    title: 'Follow real-time guidance',
+    body: 'Step back until your full body is in frame. Rep counting and general form hints follow you.',
   },
   {
     icon: LineChart,
-    title: 'Save your progress',
-    body: 'Finish the workout to save the session and see it in your history and charts.',
+    title: 'Track your progress',
+    body: 'Finish to save the session and watch your history and consistency build over time.',
   },
 ]
 
@@ -188,5 +165,143 @@ export const faqs = [
   {
     q: 'Will I lose weight or get fitter?',
     a: 'We cannot promise results. Consistent, appropriate exercise helps most people, and FitAI is designed to make that consistency easier to track.',
+  },
+]
+
+export type BodyArea = 'Full Body' | 'Upper Body' | 'Lower Body' | 'Core'
+export const bodyAreas: Array<'All' | BodyArea> = ['All', 'Full Body', 'Upper Body', 'Lower Body', 'Core']
+
+export interface CatalogExercise {
+  id: string
+  name: string
+  area: BodyArea
+  level: 'Beginner' | 'Intermediate'
+  equipment: string
+  image: string
+  /** Real-time camera tracking is implemented for this exercise. */
+  tracked: boolean
+  muscles: string[]
+  description: string
+  instructions: string[]
+  mistakes: string[]
+  camera: string
+}
+
+/**
+ * Starter exercise library shown in the UI. The backend exercise catalogue (Phase 4) will seed
+ * and serve this same shape; these entries are real instructional content, not user data.
+ */
+export const exerciseCatalog: CatalogExercise[] = [
+  {
+    id: 'squat',
+    name: 'Squats',
+    area: 'Full Body',
+    level: 'Beginner',
+    equipment: 'None',
+    image: '/images/ex-squat.webp',
+    tracked: true,
+    muscles: ['Quadriceps', 'Glutes', 'Hamstrings', 'Core'],
+    description: 'A foundational lower-body movement that also trains your core and balance.',
+    instructions: [
+      'Stand with feet about shoulder-width apart, toes slightly turned out.',
+      'Brace your core and send your hips back and down as if sitting into a chair.',
+      'Lower until your thighs are about parallel to the floor, or as far as is comfortable.',
+      'Press through your whole foot to stand back up.',
+    ],
+    mistakes: ['Knees collapsing inward', 'Heels lifting off the floor', 'Rounding the lower back'],
+    camera: 'Side-on view, full body in frame, about 2–3 metres away.',
+  },
+  {
+    id: 'pushup',
+    name: 'Push-Ups',
+    area: 'Upper Body',
+    level: 'Beginner',
+    equipment: 'None',
+    image: '/images/ex-pushup.webp',
+    tracked: true,
+    muscles: ['Chest', 'Shoulders', 'Triceps', 'Core'],
+    description: 'A classic bodyweight press. Start on your knees or against a wall if a full push-up is too hard.',
+    instructions: [
+      'Place your hands slightly wider than your shoulders, body in one straight line.',
+      'Lower your chest towards the floor with elbows at roughly 45 degrees from your body.',
+      'Pause briefly just above the floor.',
+      'Press back up until your arms are straight.',
+    ],
+    mistakes: ['Hips sagging or piking up', 'Flaring elbows straight out', 'Not lowering through a full range'],
+    camera: 'Side-on view, camera low to the floor, whole body in frame.',
+  },
+  {
+    id: 'lunge',
+    name: 'Lunges',
+    area: 'Lower Body',
+    level: 'Beginner',
+    equipment: 'None',
+    image: '/images/ex-lunge.webp',
+    tracked: true,
+    muscles: ['Quadriceps', 'Glutes', 'Hamstrings'],
+    description: 'A single-leg movement that builds strength and balance, one side at a time.',
+    instructions: [
+      'Stand tall, then step one foot forward into a long stride.',
+      'Lower your back knee towards the floor while keeping your torso upright.',
+      'Keep your front knee roughly above your ankle.',
+      'Push through the front foot to return, then switch legs.',
+    ],
+    mistakes: ['Stride too short', 'Leaning the torso far forward', 'Front knee drifting inward'],
+    camera: 'Side-on or front-on, full body in frame.',
+  },
+  {
+    id: 'plank',
+    name: 'Plank',
+    area: 'Core',
+    level: 'Beginner',
+    equipment: 'None',
+    image: '/images/ex-plank.webp',
+    tracked: false,
+    muscles: ['Abdominals', 'Shoulders', 'Glutes'],
+    description: 'An isometric hold that trains trunk stability. Instruction only: not camera tracked yet.',
+    instructions: [
+      'Rest on your forearms with elbows under your shoulders.',
+      'Extend your legs and tuck your toes, forming one line from head to heels.',
+      'Brace your abs and squeeze your glutes. Keep breathing.',
+      'Hold for the planned time, then lower with control.',
+    ],
+    mistakes: ['Hips sagging', 'Hips raised too high', 'Holding your breath'],
+    camera: 'Not camera tracked yet.',
+  },
+  {
+    id: 'press',
+    name: 'Shoulder Press',
+    area: 'Upper Body',
+    level: 'Intermediate',
+    equipment: 'Dumbbells',
+    image: '/images/ex-press.webp',
+    tracked: false,
+    muscles: ['Shoulders', 'Triceps', 'Upper chest'],
+    description: 'An overhead press with dumbbells. Instruction only: not camera tracked yet.',
+    instructions: [
+      'Hold a dumbbell in each hand at shoulder height, palms facing forward.',
+      'Brace your core and press the weights overhead until your arms are straight.',
+      'Lower back to shoulder height with control.',
+    ],
+    mistakes: ['Arching the lower back', 'Using momentum from the legs', 'Choosing a weight that is too heavy'],
+    camera: 'Not camera tracked yet.',
+  },
+  {
+    id: 'curl',
+    name: 'Bicep Curl',
+    area: 'Upper Body',
+    level: 'Beginner',
+    equipment: 'Dumbbells',
+    image: '/images/ex-curl.webp',
+    tracked: false,
+    muscles: ['Biceps', 'Forearms'],
+    description: 'An arm exercise with dumbbells. Instruction only: not camera tracked yet.',
+    instructions: [
+      'Stand tall holding a dumbbell in each hand, palms forward.',
+      'Keeping your elbows by your sides, curl the weights towards your shoulders.',
+      'Lower slowly to the start.',
+    ],
+    mistakes: ['Swinging the body', 'Elbows drifting forward', 'Dropping the weights quickly'],
+    camera: 'Not camera tracked yet.',
   },
 ]

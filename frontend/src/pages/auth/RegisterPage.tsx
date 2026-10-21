@@ -3,7 +3,7 @@ import { Link, useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MailCheck } from 'lucide-react'
-import { Button, ErrorMessage, Input } from '@/components/ui'
+import { Button, ErrorMessage, Input, PasswordInput } from '@/components/ui'
 import { api, getErrorMessage, getFieldErrors } from '@/lib/api'
 import { registerSchema, type RegisterValues } from '@/lib/validation'
 import { AuthShell } from './AuthShell'
@@ -85,8 +85,17 @@ export function RegisterPage() {
 
   return (
     <AuthShell
-      title="Create your free account"
-      subtitle="Start tracking workouts in a couple of minutes."
+      title="Create Your Account"
+      subtitle="Start your fitness journey today."
+      photo="man"
+      side={
+        <>
+          <h2 className="text-4xl font-extrabold leading-tight tracking-tight">
+            Train smarter with <span className="text-gradient">FitAI</span>
+          </h2>
+          <p className="mt-3 text-muted">Real-time rep counting, personalised plans and progress tracking, free to start.</p>
+        </>
+      }
       footer={
         <>
           Already have an account?{' '}
@@ -99,23 +108,21 @@ export function RegisterPage() {
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {formError && <ErrorMessage message={formError} />}
         <Input
-          label="Display name"
+          label="Full name"
           autoComplete="nickname"
           error={errors.displayName?.message}
           {...register('displayName')}
         />
         <Input label="Email" type="email" autoComplete="email" error={errors.email?.message} {...register('email')} />
-        <Input
+        <PasswordInput
           label="Password"
-          type="password"
           autoComplete="new-password"
           hint="At least 10 characters with upper case, lower case and a number."
           error={errors.password?.message}
           {...register('password')}
         />
-        <Input
+        <PasswordInput
           label="Confirm password"
-          type="password"
           autoComplete="new-password"
           error={errors.confirmPassword?.message}
           {...register('confirmPassword')}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, ErrorMessage, Input } from '@/components/ui'
+import { Button, ErrorMessage, Input, PasswordInput } from '@/components/ui'
 import { api, getErrorMessage } from '@/lib/api'
 import { loginSchema, type LoginValues } from '@/lib/validation'
 import { AuthShell } from './AuthShell'
@@ -29,8 +29,17 @@ export function LoginPage() {
 
   return (
     <AuthShell
-      title="Welcome back"
-      subtitle="Sign in to continue your training."
+      title="Sign In"
+      subtitle="Enter your credentials to continue."
+      photo="woman"
+      side={
+        <>
+          <h2 className="text-4xl font-extrabold leading-tight tracking-tight">
+            Welcome Back to <span className="text-gradient">FitAI</span>
+          </h2>
+          <p className="mt-3 text-muted">Continue your fitness journey with AI-powered workouts and guidance.</p>
+        </>
+      }
       footer={
         <>
           New to FitAI?{' '}
@@ -43,9 +52,8 @@ export function LoginPage() {
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {formError && <ErrorMessage message={formError} />}
         <Input label="Email" type="email" autoComplete="email" error={errors.email?.message} {...register('email')} />
-        <Input
+        <PasswordInput
           label="Password"
-          type="password"
           autoComplete="current-password"
           error={errors.password?.message}
           {...register('password')}

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, ErrorMessage, Input, useToast } from '@/components/ui'
+import { Button, ErrorMessage, PasswordInput, useToast } from '@/components/ui'
 import { api, getErrorMessage } from '@/lib/api'
 import { resetPasswordSchema, type ResetPasswordValues } from '@/lib/validation'
 import { AuthShell } from './AuthShell'
@@ -45,17 +45,15 @@ export function ResetPasswordPage() {
     <AuthShell title="Choose a new password">
       <form onSubmit={onSubmit} noValidate className="space-y-4">
         {formError && <ErrorMessage message={formError} />}
-        <Input
+        <PasswordInput
           label="New password"
-          type="password"
           autoComplete="new-password"
           hint="At least 10 characters with upper case, lower case and a number."
           error={errors.password?.message}
           {...register('password')}
         />
-        <Input
+        <PasswordInput
           label="Confirm password"
-          type="password"
           autoComplete="new-password"
           error={errors.confirmPassword?.message}
           {...register('confirmPassword')}

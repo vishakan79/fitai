@@ -1,7 +1,7 @@
 export { Button, LinkButton, buttonStyles } from './Button'
 export type { ButtonProps, ButtonVariant, ButtonSize, LinkButtonProps } from './Button'
 export { Card, CardTitle, CardDescription } from './Card'
-export { Input, Textarea } from './Input'
+export { Input, PasswordInput, Textarea } from './Input'
 export { Badge } from './Badge'
 export type { BadgeTone } from './Badge'
 export { Spinner, LoadingState } from './Spinner'
